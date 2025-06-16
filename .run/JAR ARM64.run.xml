@@ -1,16 +1,16 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Install Arm64 Toolchain" type="GradleRunConfiguration" factoryName="Gradle">
+  <configuration default="false" name="JAR ARM64" type="GradleRunConfiguration" factoryName="Gradle">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
       <option name="externalSystemIdString" value="GRADLE" />
-      <option name="scriptParameters" value="" />
+      <option name="scriptParameters" value="-PArchOverride=linuxarm64" />
       <option name="taskDescriptions">
         <list />
       </option>
       <option name="taskNames">
         <list>
-          <option value="installArm64Toolchain" />
+          <option value="shadowJar" />
         </list>
       </option>
       <option name="vmOptions" />
