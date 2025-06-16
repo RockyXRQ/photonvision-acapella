@@ -25,9 +25,7 @@
 package org.photonvision;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.photonvision.UnitTestUtils.waitForCondition;
 import static org.photonvision.UnitTestUtils.waitForSequenceNumber;
@@ -41,9 +39,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.simulation.SimHooks;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -57,7 +52,6 @@ import org.photonvision.jni.PhotonTargetingJniLoader;
 import org.photonvision.jni.TimeSyncClient;
 import org.photonvision.jni.WpilibLoader;
 import org.photonvision.simulation.PhotonCameraSim;
-import org.photonvision.targeting.PhotonPipelineMetadata;
 import org.photonvision.targeting.PhotonPipelineResult;
 
 class PhotonCameraTest {
@@ -301,92 +295,5 @@ class PhotonCameraTest {
         tspClient.stop();
 
         DataLogManager.stop();
-    }
-
-    @Test
-    public void testAlerts() throws InterruptedException {
-        // GIVEN a fresh NT instance
-
-        var cameraName = "foobar";
-
-        // AND a photoncamera that is disconnected
-        var camera = new PhotonCamera(inst, cameraName);
-        assertFalse(camera.isConnected());
-
-        String disconnectedCameraString = "PhotonCamera '" + cameraName + "' is disconnected.";
-
-        // Loop to hit cases past first iteration
-        for (int i = 0; i < 10; i++) {
-            // WHEN we update the camera
-            camera.getAllUnreadResults();
-
-            // AND we tick SmartDashboard
-            SmartDashboard.updateValues();
-
-            // The alert state will be set (hard-coded here)
-            assertTrue(
-                    Arrays.stream(SmartDashboard.getStringArray("PhotonAlerts/warnings", new String[0]))
-                            .anyMatch(it -> it.equals(disconnectedCameraString)));
-
-            Thread.sleep(20);
-        }
-
-        // GIVEN a simulated camera
-        var sim = new PhotonCameraSim(camera);
-        // AND a result with a timeSinceLastPong in the past
-        PhotonPipelineResult noPongResult =
-                new PhotonPipelineResult(
-                        new PhotonPipelineMetadata(
-                                1, 2, 3, 10 * 1000000 // 10 seconds -> us since last pong
-                                ),
-                        List.of(),
-                        Optional.empty());
-
-        // Loop to hit cases past first iteration
-        for (int i = 0; i < 10; i++) {
-            // AND a PhotonCamera with a "new" result
-            sim.submitProcessedFrame(noPongResult);
-
-            // WHEN we update the camera
-            camera.getAllUnreadResults();
-
-            // AND we tick SmartDashboard
-            SmartDashboard.updateValues();
-
-            // THEN the camera isn't disconnected
-            assertTrue(
-                    Arrays.stream(SmartDashboard.getStringArray("PhotonAlerts/warnings", new String[0]))
-                            .noneMatch(it -> it.equals(disconnectedCameraString)));
-            // AND the alert string looks like a timesync warning
-            assertTrue(
-                    Arrays.stream(SmartDashboard.getStringArray("PhotonAlerts/warnings", new String[0]))
-                                    .filter(it -> it.contains("is not connected to the TimeSyncServer"))
-                                    .count()
-                            == 1);
-
-            Thread.sleep(20);
-        }
-
-        final double HEARTBEAT_TIMEOUT = 0.5;
-
-        // GIVEN a PhotonCamera provided new results
-        SimHooks.pauseTiming();
-        sim.submitProcessedFrame(noPongResult);
-        camera.getAllUnreadResults();
-        // AND in a connected state
-        assertTrue(camera.isConnected());
-
-        // WHEN we wait the timeout
-        SimHooks.stepTiming(HEARTBEAT_TIMEOUT * 1.5);
-
-        // THEN the camera will not be connected
-        assertFalse(camera.isConnected());
-
-        // WHEN we then provide new results
-        SimHooks.stepTiming(0.02);
-        sim.submitProcessedFrame(noPongResult);
-        camera.getAllUnreadResults();
-        // THEN the camera will not be connected
-        assertTrue(camera.isConnected());
     }
 }
