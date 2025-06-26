@@ -12,7 +12,7 @@ Acapella is a compact compute cluster based on the Radxa Rock 5C and custom PCBs
 | Camera   | Sensor  | Description | Purchase Link |
 |:--------:|:-------:|:-----------:|:-------------:|
 | KS1A293  | OV9281  | Auto Exposure disabled | [🛍️](https://item.taobao.com/item.htm?from=cart&id=673966141469&skuId=4847993832874&spm=a1z0d.6639537%2F202410.item.d673966141469.dbb27484URNhMv) |
-| KS2A123 | UNKNOWN | Auto Exposure suggested | [🛍️](https://item.taobao.com/item.htm?_u=q27e2upkafa2&id=677264749766&spm=a1z09.2.0.0.7af42e8dRzbvMu) |
+| KS2A123 | OG02B10 | Auto Exposure suggested | [🛍️](https://item.taobao.com/item.htm?_u=q27e2upkafa2&id=677264749766&spm=a1z09.2.0.0.7af42e8dRzbvMu) |
 
 ## Quick Start
 Most users only need to:
