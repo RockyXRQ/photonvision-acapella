@@ -88,7 +88,9 @@ public class QuirkyCamera {
                     // Innomaker OV9281
                     new QuirkyCamera(
                             0x0c45, 0x636d, "USB Camera", "Innomaker OV9281", CameraQuirk.InnoOV9281Controls),
-                    new QuirkyCamera(-1, -1, "KS1A293", "KS1A293", CameraQuirk.Gain, CameraQuirk.Ks1a293));
+                    new QuirkyCamera(-1, -1, "KS1A293", "KS1A293", CameraQuirk.Gain, CameraQuirk.Ks1a293),
+                    new QuirkyCamera(
+                            -1, -1, "4K AutoFocus Webcam", "KS2A123", CameraQuirk.Gain, CameraQuirk.Ks2a123));
 
     public static final QuirkyCamera DefaultCamera = new QuirkyCamera(0, 0, "");
     public static final QuirkyCamera ZeroCopyPiCamera =

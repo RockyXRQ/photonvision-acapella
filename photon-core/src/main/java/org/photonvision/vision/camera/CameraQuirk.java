@@ -59,4 +59,5 @@ public enum CameraQuirk {
     /** Camera has odd exposure range, and supports gain control */
     See3Cam_24CUG,
     Ks1a293,
+    Ks2a123,
 }
