@@ -57,8 +57,13 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-      - name: Add safe git directory
-        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: Add safe git directory (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Add safe git directory (Windows)
+        if: runner.os == 'Windows'
+        run: git config --global --add safe.directory "$env:GITHUB_WORKSPACE"
+        shell: pwsh
       - name: Fetch tags
         run: git fetch --tags --force
       - name: Debug git describe
@@ -105,8 +110,13 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-      - name: Add safe git directory
-        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: Add safe git directory (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Add safe git directory (Windows)
+        if: runner.os == 'Windows'
+        run: git config --global --add safe.directory "$env:GITHUB_WORKSPACE"
+        shell: pwsh
       - name: Fetch tags
         run: git fetch --tags --force
       - name: Debug git describe
@@ -194,8 +204,13 @@ jobs:
           distribution: temurin
 
       # grab all tags
-      - name: Add safe git directory
-        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: Add safe git directory (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Add safe git directory (Windows)
+        if: runner.os == 'Windows'
+        run: git config --global --add safe.directory "$env:GITHUB_WORKSPACE"
+        shell: pwsh
       - run: git fetch --tags --force
       - name: Ensure consistent version
         run: |
@@ -245,8 +260,13 @@ jobs:
           java-version: 17
           distribution: temurin
           architecture: ${{ matrix.architecture }}
-      - name: Add safe git directory
-        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: Add safe git directory (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Add safe git directory (Windows)
+        if: runner.os == 'Windows'
+        run: git config --global --add safe.directory "$env:GITHUB_WORKSPACE"
+        shell: pwsh
       - run: git fetch --tags --force
       - run: |
           # Ensure a valid version tag exists
@@ -304,8 +324,13 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-      - name: Add safe git directory
-        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: Add safe git directory (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Add safe git directory (Windows)
+        if: runner.os == 'Windows'
+        run: git config --global --add safe.directory "$env:GITHUB_WORKSPACE"
+        shell: pwsh
       - name: Fetch tags and ensure version
         run: |
           git fetch --tags --force
@@ -342,8 +367,13 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-      - name: Add safe git directory
-        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: Add safe git directory (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Add safe git directory (Windows)
+        if: runner.os == 'Windows'
+        run: git config --global --add safe.directory "$env:GITHUB_WORKSPACE"
+        shell: pwsh
       - run: git fetch --tags --force
       - run: |
           # Ensure a valid version tag exists
