@@ -44,6 +44,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - os: windows-2022
+            architecture: x64
           - os: ubuntu-22.04
 
     name: "Photonlib - Build Examples - ${{ matrix.os }}"
@@ -224,6 +226,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - os: windows-2022
+            artifact-name: Win64
+            architecture: x64
           - os: ubuntu-22.04
             artifact-name: Linux
 
@@ -382,6 +387,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - os: windows-latest
+            artifact-name: Win64
+            architecture: x64
+            arch-override: winx64
           - os: ubuntu-22.04
             artifact-name: Linux
             architecture: x64
@@ -447,6 +456,9 @@ jobs:
           - os: ubuntu-22.04
             artifact-name: jar-Linux
             extraOpts: -Djdk.lang.Process.launchMechanism=vfork
+          - os: windows-latest
+            artifact-name: jar-Win64
+            extraOpts: ""
 
     runs-on: ${{ matrix.os }}
 
