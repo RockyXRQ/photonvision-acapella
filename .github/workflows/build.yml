@@ -271,11 +271,12 @@ jobs:
       - name: Ensure a valid version tag exists
         shell: bash
         run: |
-          if ! git describe --tags --match=v* 2>/dev/null; then
+          if ! git describe --tags --match="v*" >/dev/null 2>&1; then
             echo "No version tag found, creating one based on current version"
             # Get version from gradle.properties or use default
             VERSION=$(grep -o 'versionString=.*' gradle.properties | cut -d'=' -f2 || echo "v2025.3.2.1")
             git tag $VERSION
+          fi
       - name: Ensure consistent version
         shell: bash
         run: |
