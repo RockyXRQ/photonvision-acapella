@@ -67,6 +67,7 @@ jobs:
       - name: Fetch tags
         run: git fetch --tags --force
       - name: Debug git describe
+        shell: bash
         run: git describe --tags --match="v*" || echo "No tag found"
       - name: Checkout tag if exists
         shell: bash
@@ -75,6 +76,7 @@ jobs:
             git checkout "${GITHUB_REF_NAME}"
           fi
       - name: Ensure consistent version
+        shell: bash
         run: |
           # Get the version once and use it consistently
           if git describe --tags --match="v*" >/dev/null 2>&1; then
@@ -121,6 +123,7 @@ jobs:
       - name: Fetch tags
         run: git fetch --tags --force
       - name: Debug git describe
+        shell: bash
         run: git describe --tags --match="v*" || echo "No tag found"
       - name: Checkout tag if exists
         shell: bash
@@ -129,6 +132,7 @@ jobs:
             git checkout "${GITHUB_REF_NAME}"
           fi
       - name: Ensure consistent version
+        shell: bash
         run: |
           # Get the version once and use it consistently
           if git describe --tags --match="v*" >/dev/null 2>&1; then
@@ -215,6 +219,7 @@ jobs:
         shell: pwsh
       - run: git fetch --tags --force
       - name: Ensure consistent version
+        shell: bash
         run: |
           # Get the version once and use it consistently
           if git describe --tags --match="v*" >/dev/null 2>&1; then
@@ -336,6 +341,7 @@ jobs:
         run: git config --global --add safe.directory "$env:GITHUB_WORKSPACE"
         shell: pwsh
       - name: Fetch tags and ensure version
+        shell: bash
         run: |
           git fetch --tags --force
           # Get the version once and use it consistently
