@@ -11,7 +11,7 @@ gradle.allprojects {
             println("Using CI version: " + ciVersion)
             return ciVersion
         }
-        
+
         def stdout = new ByteArrayOutputStream()
         String tagIsh
         try {
