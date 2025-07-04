@@ -55,6 +55,8 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
+      - name: Add safe git directory
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: Fetch tags
         run: git fetch --tags --force
       - name: Debug git describe
@@ -101,6 +103,8 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
+      - name: Add safe git directory
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: Fetch tags
         run: git fetch --tags --force
       - name: Debug git describe
@@ -188,6 +192,8 @@ jobs:
           distribution: temurin
 
       # grab all tags
+      - name: Add safe git directory
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - run: git fetch --tags --force
       - name: Ensure consistent version
         run: |
@@ -234,6 +240,8 @@ jobs:
           java-version: 17
           distribution: temurin
           architecture: ${{ matrix.architecture }}
+      - name: Add safe git directory
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - run: git fetch --tags --force
       - run: |
           # Ensure a valid version tag exists
@@ -291,9 +299,8 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-      - name: Config Git
-        run: |
-          git config --global --add safe.directory /__w/photonvision/photonvision
+      - name: Add safe git directory
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: Fetch tags and ensure version
         run: |
           git fetch --tags --force
@@ -330,6 +337,8 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
+      - name: Add safe git directory
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - run: git fetch --tags --force
       - run: |
           # Ensure a valid version tag exists
