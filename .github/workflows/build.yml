@@ -69,6 +69,7 @@ jobs:
       - name: Debug git describe
         run: git describe --tags --match="v*" || echo "No tag found"
       - name: Checkout tag if exists
+        shell: bash
         run: |
           if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
             git checkout "${GITHUB_REF_NAME}"
@@ -122,6 +123,7 @@ jobs:
       - name: Debug git describe
         run: git describe --tags --match="v*" || echo "No tag found"
       - name: Checkout tag if exists
+        shell: bash
         run: |
           if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
             git checkout "${GITHUB_REF_NAME}"
